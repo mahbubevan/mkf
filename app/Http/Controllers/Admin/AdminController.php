@@ -22,7 +22,7 @@ class AdminController extends Controller
         $data['total_profit'] = $data['total_income'] - $data['total_expense'];
 
         $data['employee_count'] = Employee::where('status', Employee::ACTIVE)->count();
-        $data['total_stock'] = Stock::sum('quantity');
+        $data['total_stock'] = Stock::sum('remaining');
         $data['running_production'] = Production::where('status', '!=', Production::COMPLETED)->sum('pant_quantity');
 
         $data['current_month_sale'] = Sale::whereMonth('created_at', Carbon::now()->month)

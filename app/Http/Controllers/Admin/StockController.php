@@ -12,7 +12,7 @@ class StockController extends Controller
     public function list()
     {
         $data['page_title'] = 'Stock Records';
-        $data['stocks'] = Stock::with('production')->latest()->paginate(5);
+        $data['stocks'] = Stock::with('production')->latest()->paginate(25);
 
         return view('admin.stock.index', $data);
     }

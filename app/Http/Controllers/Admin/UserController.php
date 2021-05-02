@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function list()
     {
-        $data['users'] = User::latest()->paginate(5);
+        $data['users'] = User::latest()->paginate(25);
 
         return view('admin.user.list', $data);
     }

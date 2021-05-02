@@ -14,7 +14,7 @@ class FabricController extends Controller
     public function list()
     {
         $data['page_title'] = 'Fabrics Records';
-        $data['fabrics'] = Fabric::latest()->paginate(5);
+        $data['fabrics'] = Fabric::latest()->paginate(20);
 
         return view('admin.fabric.index', $data);
     }
@@ -29,7 +29,7 @@ class FabricController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:30',
+            'name' => 'required|max:191',
             'yards' => 'required|numeric',
             'amount' => 'required|numeric',
             'rate' => 'required|numeric',

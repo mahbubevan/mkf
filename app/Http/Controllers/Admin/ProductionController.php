@@ -15,7 +15,7 @@ class ProductionController extends Controller
     public function list()
     {
         $data['page_title'] = 'Production Records';
-        $data['productions'] = Production::latest()->paginate(5);
+        $data['productions'] = Production::latest()->paginate(20);
 
         return view('admin.production.index', $data);
     }

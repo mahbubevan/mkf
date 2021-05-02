@@ -72,6 +72,34 @@
                       </tr>
                     @endforelse
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <b>{{__($fabrics->sum('yards'))}} ({{__('yds')}})</b>
+                        </td>
+                        <td>
+                            <b>{{__('Total Costs')}}</b>
+                        </td>
+                        <td>
+                            <b>
+                                {{__(number_format($fabrics->sum('amount'),2))}} {{(__($setting->currency??"BDT"))}}
+                            </b>
+                        </td>
+                        <td></td>
+                        <td>
+                            <b>
+                                {{__($fabrics->sum('expected_pant'))}} ({{__('Pcs')}})
+                            </b>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
               </table>
             </div>
             <!-- /.card-body -->

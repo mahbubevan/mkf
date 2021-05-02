@@ -22,7 +22,7 @@
                   <tr>
                     <th> {{__('Name')}} </th>
                     <th> {{__('Quantity')}} </th>
-                    <th>{{__('Amount')}}</th>
+                    <th>{{__('Amount')}} {{__($setting->currency??"BDT")}}</th>
                     <th>{{__('Transaction ID')}}</th>
                     <th>{{__('Status')}}</th>
                     <th>{{__('Details')}}</th>
@@ -39,7 +39,7 @@
                             {{$item->quantity}}
                         </td>
                         <td>
-                            {{$item->amount}}
+                            {{number_format($item->amount,2)}}
                         </td>
                         <td>
                             {{$item->trx_id}}
@@ -60,6 +60,19 @@
                       </tr>
                     @endforelse
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td> </td>
+                        <td>
+                            <b>{{__('Total Amount')}}</b>
+                        </td>
+                        <td>
+                            <span class="text-success">
+                                <b> {{__(number_format($inventories->sum('amount'),2))}} {{__($setting->currency??"BDT")}} </b>
+                            </span>
+                        </td>
+                    </tr>
+                </tfoot>
               </table>
             </div>
             <!-- /.card-body -->

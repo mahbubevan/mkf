@@ -12,7 +12,7 @@ class EmployeeController extends Controller
     public function list()
     {
         $data['page_title'] = 'Employee Record';
-        $data['employees'] = Employee::latest()->paginate(5);
+        $data['employees'] = Employee::latest()->paginate(20);
 
         return view('admin.employee.index', $data);
     }

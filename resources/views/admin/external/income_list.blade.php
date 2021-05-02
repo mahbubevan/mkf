@@ -30,7 +30,7 @@
                     @forelse ($incomes as $item)
                     <tr>
                         <td>
-                            {{$item->name}}
+                            {{$item->details??""}}
                         </td>
                         <td>
                             {{$item->amount}}
@@ -48,6 +48,15 @@
                       </tr>
                     @endforelse
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <b>{{__(number_format($incomes->sum('amount'),2))}} ({{__($setting->currency??"BDT")}})</b>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tfoot>
               </table>
             </div>
             <!-- /.card-body -->

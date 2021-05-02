@@ -35,7 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label for="total_price">{{__('Total Price')}} ({{__($setting->currency??"BDT")}})</label>
-                            <input readonly step="any" type="number" name="total_price" id="total_price" class="form-control">
+                            <input step="any" type="number" name="total_price" id="total_price" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="remarks">{{__('Details')}} </label>
@@ -72,6 +72,13 @@
                 var qty = $("#quantity").val()
                 var total = parseFloat(qty*amount).toFixed(2)
                 $("#total_price").val(total)
+            })
+
+            $(document).on('keyup','#total_price',function(){
+                var totalPrice = $(this).val()
+                var qty = $("#quantity").val()
+                var amount = parseFloat(totalPrice/qty).toFixed(2)
+                $("#amount").val(amount)
             })
 
 

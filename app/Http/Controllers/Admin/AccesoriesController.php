@@ -14,7 +14,7 @@ class AccesoriesController extends Controller
     public function list()
     {
         $data['page_title'] = 'Accesories Record';
-        $data['accesories'] = Accesories::with('accesories_name')->latest()->paginate(5);
+        $data['accesories'] = Accesories::with('accesories_name')->latest()->paginate(20);
         return view('admin.accesories.index', $data);
     }
 
@@ -64,7 +64,7 @@ class AccesoriesController extends Controller
     public function name()
     {
         $data['page_title'] = 'Accesories Lists';
-        $data['accesories'] = AccesoriesList::latest()->paginate(5);
+        $data['accesories'] = AccesoriesList::latest()->paginate(20);
 
         return view('admin.accesories.name', $data);
     }

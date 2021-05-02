@@ -25,7 +25,6 @@
                     <th>{{__('Remaining')}} {{__('Pcs')}} </th>
                     <th>{{__('Sold')}} {{__('Pcs')}} </th>
                     <th>{{__('Rate')}} ({{__($settting->currency??"BDT")}}/{{__('Pcs')}}) </th>
-                    <th>{{__('Currently Sold')}} </th>
                     <th>{{__('Total Expected Selling')}} </th>
                     <th>{{__('Stock In Date')}}</th>
                   </tr>
@@ -53,11 +52,6 @@
                                     echo 0;
                                 }
                             @endphp
-                        </td>
-                        <td>
-                            <b>
-                                {{number_format(($item->quantity-$item->remaining)*$item->amount,2)}} {{__($setting->currency)??"BDT"}}
-                            </b>
                         </td>
                         <td>
                             <b>

@@ -60,6 +60,23 @@
                       </tr>
                     @endforelse
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <b>{{__($sales->sum('quantity'))}} ({{__('Pcs')}}) </b>
+                        </td>
+                        <td>
+                            <b>
+                                {{__(number_format($sales->sum('amount'),2))}} {{__($setting->currency??"BDT")}}
+                            </b>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
               </table>
             </div>
             <!-- /.card-body -->

@@ -13,7 +13,7 @@ class InventoryController extends Controller
     public function list()
     {
         $data['page_title'] = 'Inventory Records';
-        $data['inventories'] = Inventory::latest()->paginate(5);
+        $data['inventories'] = Inventory::latest()->paginate(20);
 
         return view('admin.inventory.index', $data);
     }

@@ -16,7 +16,7 @@ class SaleController extends Controller
     public function list()
     {
         $data['page_title'] = 'Sale Lists';
-        $data['sales'] = Sale::latest()->paginate(5);
+        $data['sales'] = Sale::latest()->paginate(20);
 
         return view('admin.sale.index', $data);
     }

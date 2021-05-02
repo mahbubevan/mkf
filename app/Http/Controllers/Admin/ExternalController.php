@@ -14,7 +14,7 @@ class ExternalController extends Controller
     public function external_expense_list()
     {
         $data['page_title'] = 'Expense Records';
-        $data['expenses'] = ExternalExpense::latest()->paginate(5);
+        $data['expenses'] = ExternalExpense::latest()->paginate(20);
 
         return view('admin.external.expense_list', $data);
     }
@@ -53,7 +53,7 @@ class ExternalController extends Controller
     public function external_income_list()
     {
         $data['page_title'] = 'Incomes Records';
-        $data['incomes'] = ExternalIncome::latest()->paginate(5);
+        $data['incomes'] = ExternalIncome::latest()->paginate(20);
 
         return view('admin.external.income_list', $data);
     }
