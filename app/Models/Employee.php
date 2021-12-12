@@ -14,4 +14,9 @@ class Employee extends Model
 
     const ACTIVE = 1;
     const INACTIVE = 0;
+
+    public function attendences()
+    {
+        return $this->hasMany(Attendance::class);
+    }
 }

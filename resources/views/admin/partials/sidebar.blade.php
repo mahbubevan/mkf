@@ -81,13 +81,13 @@
               <li class="nav-item">
                 <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>{{__('Attendance Record')}}</p>
+                  <p>{{__('Attendence')}}</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{route('admin.employee.attendence.create')}}" class="nav-link @if(request()->routeIs('admin.employee.attendence.create')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>{{__('Attendence Create')}}</p>
+                  <p>{{__('Attendence')}}</p>
                 </a>
               </li>
               <li class="nav-item">

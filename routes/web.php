@@ -105,6 +105,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::name('employee.')->prefix('employee')->group(function(){
         Route::get('attendence-create',[AttendenceController::class,'create'])->name('attendence.create');
         Route::post('attendence-store',[AttendenceController::class,'store'])->name('attendence.store');
+        Route::post('attendence-exit',[AttendenceController::class,'exit'])->name('attendence.exit');
     });
 
     Route::get('/inventory-list', [App\Http\Controllers\Admin\InventoryController::class, 'list'])->name('inventory.list');
