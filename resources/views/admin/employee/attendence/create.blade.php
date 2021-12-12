@@ -2,7 +2,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card card-success">
                 <div class="card-header">
                   <h3 class="card-title">{{__('Entry Record')}}</h3>
@@ -17,7 +17,7 @@
                       <select id="emp" class="form-control" name="emp_id">
                             <option>{{__('Choose')}}</option>
                             @foreach ($employees as $emp)
-                                <option value="{{$emp->id}}"> {{$emp->name}} </option>
+                                <option value="{{$emp->id}}"> {{$emp->name}} -- {{$emp->designation}} </option>
                             @endforeach
                       </select>
                     </div>
@@ -31,7 +31,7 @@
                           </div>
                     </div>
                     <div class="form-group">
-                        <label>{{__('Remarks')}}</label>
+                        <label>{{__('Entry Remarks')}}</label>
                         <div class="input-group">
                             <input name="remarks" type="text" class="form-control"/>                              
                         </div>
@@ -43,7 +43,7 @@
                 </form>
               </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card card-success">
                 <div class="card-header">
                   <h3 class="card-title">{{__('Exit Record')}}</h3>
@@ -70,7 +70,7 @@
                           </div>
                     </div>
                     <div class="form-group">
-                        <label>{{__('Remarks')}}</label>
+                        <label>{{__('Exit Remarks')}}</label>
                         <div class="input-group">
                             <input name="remarks" type="text" class="form-control"/>                              
                         </div>
@@ -78,6 +78,38 @@
                   </div>
                   <div class="card-footer">
                     <button type="submit" class="btn btn-success btn-block">{{__('Exit')}}</button>
+                  </div>
+                </form>
+              </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-danger">
+                <div class="card-header">
+                  <h3 class="card-title">{{__('Mark Absent Employee')}}</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form role="form" method="POST" action="{{route('admin.employee.attendence.absent')}}" enctype="multipart/form-data">
+                    @csrf
+                  <div class="card-body">
+                  <div class="form-group">
+                      <label for="emp">{{__('Select Employee')}}</label>
+                      <select id="emp" class="form-control" name="emp_id">
+                          <option>{{__('Choose')}}</option>                            
+                            @foreach ($notAttended as $emp)
+                                <option value="{{$emp->id}}"> {{$emp->name}} -- {{$emp->designation}} </option>
+                            @endforeach
+                      </select>
+                  </div>
+                  <div class="form-group">
+                        <label>{{__('Absent Cause')}}</label>
+                        <div class="input-group">
+                            <input name="remarks" type="text" class="form-control"/>                              
+                        </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-danger btn-block">{{__('Absent')}}</button>
                   </div>
                 </form>
               </div>
@@ -105,7 +137,9 @@
                   <th> {{__('Name')}} </th>
                   <th>{{__('Entry Time')}}</th>
                   <th>{{__('Exit Time')}}</th>
-                  <th>{{__('Remarks')}}</th>
+                  <th>{{__('Entry Remarks')}}</th>
+                  <th>{{__('Exit Remarks')}}</th>
+                  <th>{{__('Leave Cause')}}</th>
                   <th>{{__('Attendance')}}</th>                
                 </tr>
               </thead>
@@ -117,13 +151,31 @@
                       </td>
 
                       <td>
-                          {{$item->entry}}
+                          @if($item->entry)
+                            {{\Carbon\Carbon::parse($item->entry)->format('H:i a')}}
+                            @else 
+                             <span> Not Recorded </span>
+                          @endif
                       </td>
                       <td>
-                          {{$item->exit}}
+                          @if($item->exit_time)
+                                {{\Carbon\Carbon::parse($item->exit_time)->format('H:i a')}}
+                                @else 
+                                <span> Not Recorded </span>
+                          @endif                          
                       </td>
                       <td>
-                          {{$item->remarks}}
+                          {{$item->entry_remarks}}
+                      </td>
+                      <td>
+                          {{$item->exit_remarks}}
+                      </td>
+                      <td>
+                        @if($item->absent_remarks)
+                          {{$item->absent_remarks}} 
+                          @else 
+                            N/A
+                        @endif
                       </td>
                       <td>
                           @if ($item->attendance==\App\Models\Attendance::PRESENT)

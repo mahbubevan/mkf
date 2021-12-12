@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Employee;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AttendenceController extends Controller
 {
@@ -27,22 +28,21 @@ class AttendenceController extends Controller
      */
     public function create()
     {
-        $page_title = 'Attendence For '. Carbon::today()->format('d-m-Y');
-
-        $employees = Employee::where('status',Employee::ACTIVE)->whereHas('attendences',function($q){
-            $q->whereDate('created_at',Carbon::today());
-            $q->where('attendance','!=',Attendance::PRESENT);
-        })->get();
+        $page_title = 'Attendence For '. Carbon::now()->format('d-F-Y');
+        $employees = Employee::where('status',Employee::ACTIVE)->get();
+        
+        $ids = Attendance::whereDate('created_at',Carbon::today())->pluck('employee_id')->toArray();
+        $notAttended = Employee::whereNotIn('id',$ids)->get();        
 
         $attendedEmployee = Employee::where('status',Employee::ACTIVE)->whereHas('attendences',function($q){
             $q->whereDate('created_at',Carbon::today());
             $q->where('attendance',Attendance::PRESENT);
-            $q->where('exit',null);
+            $q->where('exit_time',null);
         })->get();
 
         $todayAttendences = Attendance::whereDate('created_at',Carbon::today())->with('employee')->get();
         
-        return view('admin.employee.attendence.create',compact('employees','attendedEmployee','todayAttendences','page_title'));
+        return view('admin.employee.attendence.create',compact('employees','attendedEmployee','todayAttendences','page_title','notAttended'));
     }
 
     /**
@@ -53,13 +53,20 @@ class AttendenceController extends Controller
      */
     public function store(Request $request)
     {
+        $isEmployeeTodayExist = Attendance::where('employee_id',$request->emp_id)->whereDate('created_at',Carbon::today())->first();
+
+        if ($isEmployeeTodayExist) {
+            return back()->with('error', 'Already Recorded');
+        }
+
+
         $attendece = new Attendance();
         $attendece->employee_id = $request->emp_id;
         $attendece->entry = $request->entry;
-        $attendece->remarks = $request->remarks;
+        $attendece->entry_remarks = $request->remarks;
         $attendece->save();
 
-        return back();
+        return back()->with('success','Attendence Recorded');
     }
 
     public function exit(Request $request)
@@ -67,11 +74,70 @@ class AttendenceController extends Controller
         $attendece = Attendance::where('employee_id',$request->emp_id)
                                 ->whereDate('created_at',Carbon::today())
                                 ->first();
-        $attendece->exit = $request->exit;
-        $attendece->remarks = $request->remarks;
+        $attendece->exit_time = $request->exit;
+        $attendece->exit_remarks = $request->remarks;
         $attendece->update();
 
         return back();
+    }
+
+    public function absent(Request $request)
+    {
+        $attendece = new Attendance();
+        $attendece->employee_id = $request->emp_id;       
+        $attendece->absent_remarks = $request->remarks;
+        $attendece->attendance = Attendance::ABSENT;
+        $attendece->save();
+
+        return back()->with('success','Attendence Recorded');
+    }
+
+    public function report(Request $request)
+    {              
+        if (!$request->all()) {
+            $reports = Attendance::whereMonth('created_at',Carbon::now()->month)            
+                                        ->select(DB::raw('DAY(created_at) as day'),DB::raw('id'),DB::raw('employee_id'),
+                                        DB::raw('attendance'),
+                                        DB::raw('entry'),DB::raw('exit_time'),
+                                        DB::raw('entry_remarks'),DB::raw('exit_remarks'),DB::raw('absent_remarks'))
+                                        ->with('employee')
+                                        ->orderBy('day','asc')
+                                        ->get()
+                                        ->groupBy('day');
+
+            $page_title = 'Attendence Report Of '. Carbon::now()->format('F-Y');
+        }else{                          
+            try {
+                
+                $reports = Attendance::whereMonth('created_at',$request->month)
+                                    ->whereYear('created_at',$request->year)
+                                    ->select(DB::raw('DAY(created_at) as day'),DB::raw('id'),DB::raw('employee_id'),
+                                        DB::raw('attendance'),
+                                        DB::raw('entry'),DB::raw('exit_time'),
+                                        DB::raw('entry_remarks'),DB::raw('exit_remarks'),DB::raw('absent_remarks'))
+                                    ->with('employee')
+                                    ->orderBy('day','asc')
+                                    ->get()
+                                    ->groupBy('day');                                    
+            } catch (\Throwable $th) {
+                return back()->with('error','Invalid Date');
+            }
+
+            $newDate = $request->year.'-'.$request->month;
+            
+            try {
+                $page_title = 'Attendence Report Of '. Carbon::parse($newDate)->format('F-Y');
+            } catch (\Throwable $th) {
+                return back()->with('error','Invalid Date');
+            }
+        }
+
+        $years = Attendance::select(DB::raw('YEAR(created_at) as years'))                            
+                            ->orderBy('years','asc')                            
+                            ->groupBy('years')                            
+                            ->pluck('years')->toArray();        
+
+        return view('admin.employee.attendence.report',compact('reports','page_title','years'));
     }
 
     /**

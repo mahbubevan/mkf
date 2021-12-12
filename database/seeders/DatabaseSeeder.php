@@ -12,8 +12,11 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        \App\Models\User::factory(1)->create();
-        \App\Models\Admin::factory(1)->create();
+    {        
+        DB::table('admins')->insert([
+            'name' => 'admin',
+            'email' => Str::random(10).'@gmail.com',
+            'password' => Hash::make('admin'),
+        ]);
     }
 }
