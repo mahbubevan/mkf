@@ -18,6 +18,7 @@ class CreateProductionsTable extends Migration
             $table->id();
             $table->integer('fabric_id')->unsigned();
             $table->longText('accesories_count');
+            $table->longText('sizes');
             $table->string('code');
             $table->text('pattern_name')->nullable();
             $table->string('model_name')->nullable();

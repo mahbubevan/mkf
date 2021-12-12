@@ -17,7 +17,8 @@ class CreateAttendancesTable extends Migration
             $table->id();
             $table->integer('employee_id')->unsigned();
             $table->boolean('attendance');
-            $table->integer('working_hours')->unsigned()->nullable();
+            $table->time('entry');
+            $table->time('exit')->nullable();
             $table->string('remarks')->nullable();
             $table->timestamps();
         });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AttendenceController;
 use App\Http\Controllers\Auth\ConfirmPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -99,6 +100,12 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/employee-salary-update/{employee}', [App\Http\Controllers\Admin\EmployeeController::class, 'salary_update'])->name('employee.update.salary');
     Route::post('/employee-type-update/{employee}', [App\Http\Controllers\Admin\EmployeeController::class, 'type_update'])->name('employee.update.type');
     Route::post('/employee-status-update/{employee}', [App\Http\Controllers\Admin\EmployeeController::class, 'status_update'])->name('employee.update.status');
+
+    // Employee Attendence
+    Route::name('employee.')->prefix('employee')->group(function(){
+        Route::get('attendence-create',[AttendenceController::class,'create'])->name('attendence.create');
+        Route::post('attendence-store',[AttendenceController::class,'store'])->name('attendence.store');
+    });
 
     Route::get('/inventory-list', [App\Http\Controllers\Admin\InventoryController::class, 'list'])->name('inventory.list');
     Route::get('/inventory-create', [App\Http\Controllers\Admin\InventoryController::class, 'create'])->name('inventory.create');

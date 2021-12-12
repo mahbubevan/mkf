@@ -41,7 +41,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="profileImage">{{_('Photo Of Employee')}}</label>
+                        <label for="profileImage">{{__('Photo Of Employee')}}</label>
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn btn-default btn-file">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="nidImage">{{_('NID Of Employee')}}</label>
+                        <label for="nidImage">{{__('NID Of Employee')}}</label>
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn btn-default btn-file">
