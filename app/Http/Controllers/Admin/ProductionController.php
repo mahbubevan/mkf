@@ -41,6 +41,7 @@ class ProductionController extends Controller
 
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'fabric_id' => 'required',
             'accesories' => 'required',
@@ -72,6 +73,7 @@ class ProductionController extends Controller
         $production = new Production();
         $production->fabric_id = $request->fabric_id;
         $production->accesories_count = $request->accesories;
+        $production->sizes = $request->sizes;
         $production->code = $request->code;
         $production->pattern_name = $request->pattern_name;
         $production->model_name = $request->model_name;

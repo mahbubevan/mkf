@@ -59,8 +59,7 @@
                 var rate = amount/yards
                 $("#rate").val(parseFloat(rate).toFixed(2))
                 var pantRate = "{{getYardsOfPants()}}"
-                var expected_pants = yards/pantRate
-                console.log(yards,pantRate,expected_pants);
+                var expected_pants = yards/pantRate                
                 $('#expected_pant').val(Math.round(expected_pants))
             })
         })

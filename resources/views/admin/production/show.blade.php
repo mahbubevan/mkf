@@ -132,6 +132,18 @@
                     <li class="list-group-item d-flex justify-content-between ">
                         <span>
                             <b>
+                                {{__('Sizes')}}
+                            </b>
+                        </span>
+                        <span>
+                                @foreach (collect($production->sizes) as $key=>$value)
+                                    <b>{{$value}}  </b><br>
+                                @endforeach
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between ">
+                        <span>
+                            <b>
                                 {{__('Expected Pant From This Fabric')}}
                             </b>
                         </span>

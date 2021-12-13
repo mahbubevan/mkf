@@ -43,6 +43,19 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">{{__('Sizes')}}</h3>
+                                <input type="number" class="form-control col-6 float-right" id="sizeCount"/>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row" id="addNewSizeField">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="code">{{__('Production Code')}}</label>
                         <input type="text" readonly class="form-control" name="code" id="code" placeholder="{{__('Required')}}">
                     </div>
@@ -128,6 +141,20 @@
                     $("#code").val(data)
                 }
             })
+        })
+
+        $(document).on('change keyup keydown','#sizeCount',function(){
+            $("#addNewSizeField").html("")           
+           var sizes = $(this).val()
+
+           for (let index = 0; index < sizes; index++) {               
+                $("#addNewSizeField").append(`
+                    <div class="col-md-2">
+                        <input type="number" class="form-control" name="sizes[]"/>
+                    </div>
+                `)
+           }
+
         })
     </script>
 @endpush
