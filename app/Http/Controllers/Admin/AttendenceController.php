@@ -8,6 +8,8 @@ use App\Models\Attendance;
 use App\Models\Employee;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Exports\AttendanceExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AttendenceController extends Controller
 {
@@ -142,12 +144,7 @@ class AttendenceController extends Controller
 
     public function reportDownload($date)
     {   
-        $report = Attendance::whereDate('created_at',$date)->with('employee')->get();
-
-        $handle = fopen("attendance-report-$date.csv", 'w');
-        fputs($handle,$report);
-        fclose($handle);
-        dd($report);
+        return Excel::download(new AttendanceExport($date), "attendance-report-$date.xlsx");
     }
 
     /**

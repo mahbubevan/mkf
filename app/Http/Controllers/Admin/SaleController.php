@@ -66,7 +66,7 @@ class SaleController extends Controller
         $transaction->type = Transaction::INCOME;
         $transaction->amount = $request->total_price;
         $transaction->post_balance = $company->current_balance;
-        $transaction->remarks = "Transaction Created On SALE. This Sale occured by - " . Auth::user()?->username ?? "N/A";
+        $transaction->remarks = "Transaction Created On SALE.";
         $transaction->save();
 
         return back()->with('success', 'Sold And Recorded Successfully');
