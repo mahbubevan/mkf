@@ -96,14 +96,14 @@ class AttendenceController extends Controller
     {              
         if (!$request->all()) {
             $reports = Attendance::whereMonth('created_at',Carbon::now()->month)            
-                                        ->select(DB::raw('DAY(created_at) as day'),DB::raw('id'),DB::raw('employee_id'),
+                                        ->select(DB::raw('DATE(created_at) as date'),DB::raw('id'),DB::raw('employee_id'),
                                         DB::raw('attendance'),
                                         DB::raw('entry'),DB::raw('exit_time'),
                                         DB::raw('entry_remarks'),DB::raw('exit_remarks'),DB::raw('absent_remarks'))
                                         ->with('employee')
-                                        ->orderBy('day','asc')
+                                        ->orderBy('date','desc')
                                         ->get()
-                                        ->groupBy('day');
+                                        ->groupBy('date');
 
             $page_title = 'Attendence Report Of '. Carbon::now()->format('F-Y');
         }else{                          
@@ -111,14 +111,14 @@ class AttendenceController extends Controller
                 
                 $reports = Attendance::whereMonth('created_at',$request->month)
                                     ->whereYear('created_at',$request->year)
-                                    ->select(DB::raw('DAY(created_at) as day'),DB::raw('id'),DB::raw('employee_id'),
+                                    ->select(DB::raw('DATE(created_at) as date'),DB::raw('id'),DB::raw('employee_id'),
                                         DB::raw('attendance'),
                                         DB::raw('entry'),DB::raw('exit_time'),
                                         DB::raw('entry_remarks'),DB::raw('exit_remarks'),DB::raw('absent_remarks'))
                                     ->with('employee')
-                                    ->orderBy('day','asc')
+                                    ->orderBy('date','desc')
                                     ->get()
-                                    ->groupBy('day');                                    
+                                    ->groupBy('date');                                    
             } catch (\Throwable $th) {
                 return back()->with('error','Invalid Date');
             }
@@ -138,6 +138,16 @@ class AttendenceController extends Controller
                             ->pluck('years')->toArray();        
 
         return view('admin.employee.attendence.report',compact('reports','page_title','years'));
+    }
+
+    public function reportDownload($date)
+    {   
+        $report = Attendance::whereDate('created_at',$date)->with('employee')->get();
+
+        $handle = fopen("attendance-report-$date.csv", 'w');
+        fputs($handle,$report);
+        fclose($handle);
+        dd($report);
     }
 
     /**

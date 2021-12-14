@@ -2,13 +2,14 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-8">
+        <div class="col-8 overflow-auto" style="height:900px;">
             @forelse($reports as $key=>$records)        
             <div class="row">
                 <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                    <h3 class="card-title">{{__('Record Of Date - ')}} {{$key}} </h3>              
+                        <h3 class="card-title">{{__('Record Of Date - ')}} {{$key}} </h3>
+                        <a href="{{route('admin.employee.attendence.report.download',$key)}}" class="btn btn-sm btn-info float-right"> {{__('Download Report')}} </a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">

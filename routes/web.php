@@ -108,6 +108,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('attendence-exit',[AttendenceController::class,'exit'])->name('attendence.exit');
         Route::post('attendence-absent',[AttendenceController::class,'absent'])->name('attendence.absent');
         Route::get('attendence-report',[AttendenceController::class,'report'])->name('attendence.report');
+        Route::get('attendence-reportDownload/{date}',[AttendenceController::class,'reportDownload'])->name('attendence.report.download');
     });
 
     Route::get('/inventory-list', [App\Http\Controllers\Admin\InventoryController::class, 'list'])->name('inventory.list');
