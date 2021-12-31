@@ -132,12 +132,12 @@
                     <li class="list-group-item d-flex justify-content-between ">
                         <span>
                             <b>
-                                {{__('Sizes')}}
+                                {{__('Sizes')}} - Quantity
                             </b>
                         </span>
                         <span>
                                 @foreach (collect($production->sizes) as $key=>$value)
-                                    <b>{{$value}}  </b><br>
+                                    <b> {{$key}} -- {{$value}} (pcs)  </b><br>
                                 @endforeach
                         </span>
                     </li>

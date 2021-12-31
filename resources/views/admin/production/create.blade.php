@@ -49,7 +49,7 @@
                                 <input type="number" class="form-control col-6 float-right" id="sizeCount"/>
                             </div>
                             <div class="card-body">
-                                <div class="form-row" id="addNewSizeField">
+                                <div class="" id="addNewSizeField">
                                     
                                 </div>
                             </div>
@@ -149,8 +149,15 @@
 
            for (let index = 0; index < sizes; index++) {               
                 $("#addNewSizeField").append(`
-                    <div class="col-md-2">
-                        <input type="number" class="form-control" name="sizes[]"/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="sizes">{{__('Size')}}</label>
+                            <input type="number" class="form-control" name="sizes[]"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="quantity">{{__('Quantity')}}</label>
+                            <input type="number" class="form-control" name="quantities[]"/>
+                        </div>
                     </div>
                 `)
            }
