@@ -92,6 +92,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/production-show/{production}', [App\Http\Controllers\Admin\ProductionController::class, 'show'])->name('production.show');
     Route::post('/production-partial/completed', [App\Http\Controllers\Admin\ProductionController::class, 'partial'])->name('production.partial');
     Route::post('/production-full/completed', [App\Http\Controllers\Admin\ProductionController::class, 'full'])->name('production.full');
+    Route::post('/production-status/update', [App\Http\Controllers\Admin\ProductionController::class, 'update'])->name('production.update');
 
     Route::get('/employee-list', [App\Http\Controllers\Admin\EmployeeController::class, 'list'])->name('employee.list');
     Route::get('/employee-create', [App\Http\Controllers\Admin\EmployeeController::class, 'create'])->name('employee.create');

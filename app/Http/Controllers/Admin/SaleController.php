@@ -39,8 +39,6 @@ class SaleController extends Controller
         $trx = \getTrx(18);
 
         $stock = Stock::with('production')->where('id', $request->stock)->first();
-
-        dd($stock);
         
         if ($stock->remaining < $request->quantity) {
             return back()->with('error', 'You do not have available stock');

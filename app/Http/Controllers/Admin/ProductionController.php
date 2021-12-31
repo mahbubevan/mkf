@@ -158,4 +158,14 @@ class ProductionController extends Controller
 
         return back()->with('success', 'Production Updated And New Stock Created Successfully');
     }
+
+    public function update(Request $request)
+    {        
+        $production = Production::where('id', $request->production_id)->first();
+        $production->status = $request->status;
+        $production->update();
+
+
+        return back()->with('success', 'Production Status Updated');
+    }
 }
