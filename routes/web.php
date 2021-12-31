@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\SalaryRecordController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -109,6 +110,11 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('attendence-absent',[AttendenceController::class,'absent'])->name('attendence.absent');
         Route::get('attendence-report',[AttendenceController::class,'report'])->name('attendence.report');
         Route::get('attendence-reportDownload/{date}',[AttendenceController::class,'reportDownload'])->name('attendence.report.download');
+    });
+
+    // Salary Report 
+    Route::name('employee.salary.')->prefix('salary-employee')->group(function(){
+        Route::get('/',[SalaryRecordController::class,'index'])->name('index');
     });
 
     Route::get('/inventory-list', [App\Http\Controllers\Admin\InventoryController::class, 'list'])->name('inventory.list');

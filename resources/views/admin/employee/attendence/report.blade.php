@@ -40,8 +40,8 @@
                                 @endif
                             </td>
                             <td>
-                                @if($item->exit)
-                                        {{\Carbon\Carbon::parse($item->exit)->format('H:i a')}}
+                                @if($item->exit_time)
+                                        {{\Carbon\Carbon::parse($item->exit_time)->format('H:i a')}}
                                         @else 
                                         <span> Not Recorded </span>
                                 @endif                          

@@ -91,7 +91,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="{{route('admin.employee.salary.index')}}" class="nav-link @if(request()->routeIs('admin.employee.salary.index')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>{{__('Salary Records')}}</p>
                 </a>
