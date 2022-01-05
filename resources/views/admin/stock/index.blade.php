@@ -74,12 +74,36 @@
                       </tr>
                     @endforelse
                 </tbody>
+                <tfoot>
+                  <tr>
+                      <td></td>
+                      <td>
+                        <b>{{$stocks->sum('quantity')}} (pcs) </b>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                          <?php
+                              try{
+                                  echo "Coming";
+                              }catch (\Excepetion $e)
+                              {
+                                  echo $e;
+                              }
+                          ?>
+                      </td>
+                      <td></td>
+                  </tr>
+              </tfoot>
               </table>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-                {{$stocks->links()}}
-            </div>
+            @if($stocks->hasPages())
+                <div class="card-footer">
+                    {{$stocks->links()}}
+                </div>
+            @endif
           </div>
           <!-- /.card -->
         </div>

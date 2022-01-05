@@ -31,7 +31,9 @@
                             {{number_format($account->last_month_balance,2)}} {{$setting->currency??""}}
                         </td>
                         <td>
+                          @if($account->updated_at)
                             {{$account->updated_at->diffforhumans()}}
+                          @endif
                         </td>
                         <td>
                             {{$account->updated_at}}

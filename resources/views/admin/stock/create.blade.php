@@ -21,7 +21,7 @@
                         <input type="number" step="any" class="form-control" id="amount" name="amount" placeholder="{{__('Enter amount')}}" required autofocus>
                     </div>
                     <div class="form-group">
-                        <label for="profileImage">{{_('Sample Images')}}</label>
+                        <label for="profileImage">{{__('Sample Images')}}</label>
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn btn-default btn-file">
