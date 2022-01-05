@@ -177,6 +177,30 @@
             </ul>
           </li>
 
+          <li class="nav-item has-treeview @if(request()->routeIs('admin.subcon.*')) menu-open @endif">
+            <a href="#" class="nav-link @if(request()->routeIs('admin.subcon.*')) active @endif">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                {{__('Subcontract Management')}}
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.subcon.index')}}" class="nav-link @if(request()->routeIs('admin.subcon.index')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p> {{__('Subcontract Lists')}} </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.subcon.create')}}" class="nav-link @if(request()->routeIs('admin.subcon.create')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>{{__('Initial New')}}</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li class="nav-item has-treeview @if(request()->routeIs('admin.stock.*')) menu-open @endif">
             <a href="#" class="nav-link @if(request()->routeIs('admin.stock.*')) active @endif">
               <i class="nav-icon fas fa-copy"></i>

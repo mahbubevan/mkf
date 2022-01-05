@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\SalaryRecordController;
+use App\Http\Controllers\SubContractController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -116,6 +117,13 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     // Salary Report 
     Route::name('employee.salary.')->prefix('salary-employee')->group(function(){
         Route::get('/',[SalaryRecordController::class,'index'])->name('index');
+    });
+
+    // Sub Contract Routes 
+    Route::name('subcon.')->prefix('subcon')->group(function(){
+        Route::get('/',[SubContractController::class,'index'])->name('index');
+        Route::get('/create',[SubContractController::class,'create'])->name('create');
+        Route::post('/store',[SubContractController::class,'store'])->name('store');
     });
 
     Route::get('/inventory-list', [App\Http\Controllers\Admin\InventoryController::class, 'list'])->name('inventory.list');
