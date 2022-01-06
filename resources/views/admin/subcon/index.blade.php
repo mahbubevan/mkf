@@ -35,40 +35,62 @@
                     @forelse ($items as $item)
                     <tr>
                         <td>
-                            {{$item->production_code??"N/A"}}
+                            {{$item->name??"N/A"}}
+                        </td>
+                        <td>
+                            {{$item->buyer_name}}
                         </td>
                         <td>
                             {{$item->quantity}}
                         </td>
                         <td>
-                            {{$item->remaining}}
+                            {{$item->rate}}
                         </td>
                         <td>
-                            {{$item->quantity-$item->remaining}}
+                            {{$item->total_amount}}
                         </td>
                         <td>
-                            @php
-                                try{
-                                    echo number_format($item->amount??"0",2);
-                                }catch(\Exception $e){
-                                    echo 0;
-                                }
-                            @endphp
+                            @if ($item->status==\App\Models\SubContract::PENDING)
+                                  <span class="badge badge-warning"> Pending </span>
+                                @elseif($item->status==\App\Models\SubContract::APPROVED)
+                                  <span class="badge badge-success"> Approved </span>
+                                @else 
+                                  <span class="badge badge-danger"> Canceled </span>
+                            @endif
                         </td>
                         <td>
-                            <b>
-                                @php
-                                    try{
-                                        echo number_format($item->quantity*$item->amount,2).' '.($setting->currency??"BDT");
-                                    }catch(\Exception $e){
-                                    echo 0;
-                                }
-                                @endphp
-                            </b>
+                          @if($item->status==\App\Models\SubContract::APPROVED)
+                              @if ($item->work_status==\App\Models\SubContract::CUTTING)
+                              <span class="badge badge-info"> Cutting </span>
+                            @elseif($item->work_status==\App\Models\SubContract::SEWING)
+                              <span class="badge badge-info"> Sewing </span>
+                            @elseif($item->work_status==\App\Models\SubContract::WASHING) 
+                              <span class="badge badge-info"> Washing </span>
+                            @elseif($item->work_status==\App\Models\SubContract::CTN) 
+                              <span class="badge badge-info"> In CTN </span>
+                            @else 
+                              <span class="badge badge-success"> Delivered </span>
+                            @endif
+                          @else 
+                            <span> N/A </span>
+                          @endif
                         </td>
                         <td>
-                            {{\Carbon\Carbon::parse($item->created_at)->format('d F Y')}}
-                        </td>
+                          @if ($item->status==\App\Models\SubContract::APPROVED)
+                            @if ($item->payment_status==\App\Models\SubContract::UNPAID)
+                              <span class="badge badge-danger"> Unpaid </span>
+                            @elseif($item->payment_status==\App\Models\SubContract::PARTPAID)
+                              <span class="badge badge-warning"> Partial Paid </span>
+                            @else 
+                              <span class="badge badge-success"> Paid </span>
+                            @endif
+                          @else 
+                            <span> N/A </span>
+                          @endif
+                      </td>
+                      <td>
+                        <a href="{{route('admin.subcon.edit',$item->id)}}" class="btn btn-sm btn-info"> Edit </a>
+                      </td>
                       </tr>
                     @empty
                       <tr>

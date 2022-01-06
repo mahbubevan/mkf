@@ -36,7 +36,6 @@ class SubContractController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $sc = new SubContract();
         $sc->name = $request->name;
         $sc->buyer_name = $request->buyerName;
@@ -68,7 +67,7 @@ class SubContractController extends Controller
      */
     public function edit(SubContract $subContract)
     {
-        //
+        return view('admin.subcon.edit',compact('subContract'));
     }
 
     /**
