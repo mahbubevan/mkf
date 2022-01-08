@@ -78,8 +78,14 @@ class SubContractController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, SubContract $subContract)
-    {
-        //
+    {        
+        $subContract->status = $request->status;
+        $subContract->work_status = $request->work_status;
+        $subContract->payment_status = $request->payment_status;
+
+        $subContract->update();
+
+        return back()->with('success','Updated Successfully');
     }
 
     /**
