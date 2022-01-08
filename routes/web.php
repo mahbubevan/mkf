@@ -126,6 +126,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('/store',[SubContractController::class,'store'])->name('store');
         Route::get('/edit/{subContract}',[SubContractController::class,'edit'])->name('edit');
         Route::post('/update/{subContract}',[SubContractController::class,'update'])->name('update');
+        Route::get('/delete/{subContract}',[SubContractController::class,'destroy'])->name('destroy');
     });
 
     Route::get('/inventory-list', [App\Http\Controllers\Admin\InventoryController::class, 'list'])->name('inventory.list');

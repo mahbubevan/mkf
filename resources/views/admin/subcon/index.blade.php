@@ -90,6 +90,7 @@
                       </td>
                       <td>
                         <a href="{{route('admin.subcon.edit',$item->id)}}" class="btn btn-sm btn-info"> Edit </a>
+                        <a href="{{route('admin.subcon.destroy',$item->id)}}" class="btn btn-sm btn-danger"> Delete </a>
                       </td>
                       </tr>
                     @empty

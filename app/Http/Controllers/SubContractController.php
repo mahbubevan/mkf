@@ -95,7 +95,8 @@ class SubContractController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(SubContract $subContract)
-    {
-        //
+    {        
+        $subContract->delete();
+        return back()->with('success','Deleted Successfully');
     }
 }
